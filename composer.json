@@ -1,0 +1,14 @@
+{
+  "name": "tomleenaert/iaaf-points-api",
+  "description": "Simple PHP API for calculating IAAF/World Athletics points",
+  "type": "project",
+  "require": {
+    "php": ">=7.4",
+    "glaivepro/iaafpoints": "^1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "IaafApi\\": "src/"
+    }
+  }
+}
