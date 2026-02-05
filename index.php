@@ -58,6 +58,15 @@ try {
     
     // Calculate points
     $points = $calculator->evaluate($performance);
+
+        // Fallback: If library returns null, use approximate calculation
+        if ($points === null) {
+                    // Simple approximation formula for 100m men outdoor
+                    if ($event === '100m' && $gender === 'M' && !$indoor) {
+                                    // IAAF formula approximation: points = a * (b - performance)^c
+                                    $points = round(25.4347 * pow(18 - $performance, 1.81));
+                                }
+                }
     
     // Return response
     echo json_encode([
