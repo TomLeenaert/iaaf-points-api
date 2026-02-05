@@ -50,6 +50,8 @@ try {
         'gender' => $gender,
         'venueType' => $indoor ? 'indoor' : 'outdoor',
         'discipline' => $event,
+                'edition' => '2017',
+                'electronicMeasurement' => true,
     ];
     
     $calculator = new IaafCalculator($options);
