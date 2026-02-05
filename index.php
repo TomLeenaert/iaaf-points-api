@@ -1,8 +1,7 @@
 <?php
 require_once __DIR__ . '/vendor/autoload.php';
 
-use GlaivePro\IaafPoints\IaafPoints;
-
+use GlaivePro\IaafPoints\IaafCalculator;
 // Enable CORS
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST, OPTIONS');
@@ -39,20 +38,17 @@ if (!isset($input['event']) || !isset($input['performance']) || !isset($input['g
 }
 
 try {
-    $calculator = new IaafPoints();
+        // Set options for calculator
+    $options = [
+        'gender' => $gender,
+        'venueType' => $indoor ? 'indoor' : 'outdoor',
+        'discipline' => $event,
+    ];
     
-    $gender = strtoupper($input['gender']);
-    $event = $input['event'];
-    $performance = floatval($input['performance']);
-    $indoor = isset($input['indoor']) ? (bool)$input['indoor'] : false;
+    $calculator = new IaafCalculator($options);
     
     // Calculate points
-    $points = $calculator->getPoints(
-        $gender,
-        $event,
-        $performance,
-        $indoor
-    );
+    $points = $calculator->evaluate($performance);
     
     // Return response
     echo json_encode([
